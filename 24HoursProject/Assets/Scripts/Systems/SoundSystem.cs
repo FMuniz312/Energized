@@ -73,7 +73,7 @@ public class SoundSystem : MonoBehaviour
 
     private void OnDestroy()
     {
-        instance = null;
+       // instance = null;
     }
 }
 

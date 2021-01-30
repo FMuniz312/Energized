@@ -8,8 +8,7 @@ public class GameMenuHandler : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenuGO;
     [SerializeField] GameObject gameOverMenuGO;
-    [SerializeField] GameObject popUpMenuGO;
-
+ 
     [SerializeField] Text highScoreText;
     Tweener idTweener;
     Vector3 pauseMenuScaledefault;

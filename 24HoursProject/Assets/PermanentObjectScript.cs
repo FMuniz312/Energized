@@ -4,23 +4,19 @@ using UnityEngine;
 
 public class PermanentObjectScript : MonoBehaviour
 {
-    static int index;
+    static PermanentObjectScript instance;
     int uniqueIndex;
     void Awake()
     {
-        uniqueIndex = index;
-        index++;
-        GameObject[] objs = GameObject.FindGameObjectsWithTag(gameObject.tag);
-
-
-        if (objs.Length > 1)
+        if (instance == null)
         {
-            if (uniqueIndex != 0)
-            {
-                Destroy(this.gameObject);
-            }
-        }
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
 
-        DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
