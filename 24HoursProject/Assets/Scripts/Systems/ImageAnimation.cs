@@ -17,7 +17,7 @@ public class ImageAnimation : MonoBehaviour {
 		image = GetComponent<Image> ();
 	}
 
-	void Update () {
+	void FixedUpdate () {
 		if (!loop && index == sprites.Length) return;
 		frame ++;
 		if (frame < spritePerFrame) return;

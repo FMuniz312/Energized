@@ -9,7 +9,6 @@ public class PlayerManager : MonoBehaviour
 
     Transform jumpTargetTransform;
     Transform enemyTargetTransform;
-    [SerializeField] GameObject fingerRep;
     [SerializeField] LayerMask enemyProjectileLayerMask;
     [SerializeField] LayerMask enemyLayerMask;
 
@@ -21,6 +20,7 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] GameObject jumpWarningParticlePrefab;
     [SerializeField] GameObject enemyWarningParticlePrefab;
+    MovementHandler movementHandler;
 
     float timerLifeEnergy;
 
@@ -36,6 +36,7 @@ public class PlayerManager : MonoBehaviour
     static public PlayerManager instance;
     private void Awake()
     {
+        movementHandler = GetComponent<MovementHandler>();
         defaultSize = transform.localScale;
         powerChargeSystem = new PointsSystem(100);
         lifeEnergySystem = new PointsSystem(60, 60);
@@ -51,13 +52,13 @@ public class PlayerManager : MonoBehaviour
     private void Energized(object sender, PointsSystem.OnPointsDataEventArgs e)
     {
         isCharged = true;
-        
+
     }
 
     void Update()
     {
 
-        VisualTouchManager();
+        movementHandler.VisualTouchManager();
         ParticleWarning(enemyTargetTransform, copyEnemyWarningParticle);
         ParticleWarning(jumpTargetTransform, copyJumpWarningParticle);
 
@@ -129,26 +130,7 @@ public class PlayerManager : MonoBehaviour
             if (targetRayCastInfo != false) enemyTargetTransform = targetRayCastInfo.collider.gameObject.transform;
         }
     }
-    void VisualTouchManager()
-    {
-        //Player touched the screen and is moving the finger in any direction
-        if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Moved)
-        {
-            if (!fingerRep.activeSelf) fingerRep.SetActive(true);
-            //If the player touches the screen and moves the finger through the projectile, the character should move
-            Vector3 fingerpos = Input.GetTouch(0).position;
 
-            Vector3 worldFingerPos = Camera.main.ScreenToWorldPoint(new Vector3(fingerpos.x, fingerpos.y, 10));
-
-            fingerRep.transform.position = worldFingerPos;
-
-        }
-        else
-        {
-            if (fingerRep.activeSelf) fingerRep.SetActive(false);
-
-        }
-    }
     public void ResetAttackAbility()
     {
         isCharged = false;
@@ -186,10 +168,10 @@ public class PlayerManager : MonoBehaviour
     {
         try
         {
-            Vector2 fingerDir = Input.touches[0].deltaPosition.normalized;
-            rigidBody2D.AddForce(fingerDir * dashforce, ForceMode2D.Impulse);
+            Vector2 moveDirection = movementHandler.GetMoveDirection();
+            rigidBody2D.AddForce(moveDirection * dashforce, ForceMode2D.Impulse);
             transform.localScale = defaultSize;
-            transform.DOPunchScale(fingerDir * 5, 1f);
+            transform.DOPunchScale(moveDirection * 5, 1f);
 
         }
         catch

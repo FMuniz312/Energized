@@ -5,8 +5,15 @@ using DG.Tweening;
 
 public class FingerRepManager : MonoBehaviour
 {
-    [SerializeField] PlayerManager playerManager;
+    [Header("Physics")]
     [SerializeField] float dashForce;
+
+    [Header("Tweening")]
+    [SerializeField] float cameraShakeForce;
+    [SerializeField] float cameraShakeDuration;
+
+    [Header("Resource Income")]
+    [SerializeField] PlayerManager playerManager;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -44,7 +51,7 @@ public class FingerRepManager : MonoBehaviour
                     Camera cameraMain = Camera.main;
                     cameraMain.transform.position = playerManager.transform.position + new Vector3(0, 0, -10);
 
-                    cameraMain.DOShakePosition(.02f);
+                    cameraMain.DOShakePosition(cameraShakeDuration,cameraShakeForce);
                 }
             }
             catch

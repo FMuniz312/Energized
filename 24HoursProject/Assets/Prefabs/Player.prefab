@@ -45,7 +45,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 1}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -109,7 +109,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_RenderPostProcessing: 1
-  m_Antialiasing: 0
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -241,8 +241,9 @@ GameObject:
   - component: {fileID: 7465758411676864533}
   - component: {fileID: 7465758411676864530}
   - component: {fileID: 7465758411676864531}
-  - component: {fileID: 7465758411676864528}
   - component: {fileID: 7465758411676864529}
+  - component: {fileID: 7465758411676864528}
+  - component: {fileID: 5385724874968506390}
   - component: {fileID: 6742387657597669171}
   - component: {fileID: 6538535838137782783}
   - component: {fileID: 5837551917700823002}
@@ -341,28 +342,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &7465758411676864528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7465758411676864622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2609fcd3e6577044f89a44d5706c86ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fingerRep: {fileID: 0}
-  enemyProjectileLayerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  enemyLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  jumpWarningParticlePrefab: {fileID: 2237315391752371742, guid: a08f3b5c00509ed46a6b58efa3cd8dae, type: 3}
-  enemyWarningParticlePrefab: {fileID: 2237315391752371742, guid: 9fa82b42e6794a840ba5f664695dd5fe, type: 3}
-  MinDistance: 20
 --- !u!58 &7465758411676864529
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -379,6 +358,40 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.3
+--- !u!114 &7465758411676864528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7465758411676864622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2609fcd3e6577044f89a44d5706c86ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyProjectileLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  jumpWarningParticlePrefab: {fileID: 2237315391752371742, guid: a08f3b5c00509ed46a6b58efa3cd8dae, type: 3}
+  enemyWarningParticlePrefab: {fileID: 2237315391752371742, guid: 9fa82b42e6794a840ba5f664695dd5fe, type: 3}
+  MinDistance: 20
+--- !u!114 &5385724874968506390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7465758411676864622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31d7464123f37364fa0a1b0bc6202246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fingerRep: {fileID: 0}
 --- !u!114 &6742387657597669171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,7 +427,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7465758411676864622}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

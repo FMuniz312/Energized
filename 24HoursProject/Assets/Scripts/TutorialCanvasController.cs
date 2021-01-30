@@ -46,13 +46,19 @@ public class TutorialCanvasController : MonoBehaviour
     void ActivateStepOne()
     {
         step1Text.DOFade(1, TIMER_TO_FADE_SETENCE);
+#if UNITY_ANDROID || UNITY_IOS
         step1Text.DOText("Use your finger to dash\nthrough the energy ball\nin any direction", TIMER_TO_FORM_SETENCE);
+#else
+        step1Text.DOText("Use your mouse to dash\nthrough the energy ball\nin any direction", TIMER_TO_FORM_SETENCE);
+#endif
     }
 
     void ActivateStepTwo()
     {
         step2Text.DOFade(1, TIMER_TO_FADE_SETENCE);
-        step2Text.DOText("You will be thrown\nin the direction that\nyou dashed with you finger", TIMER_TO_FORM_SETENCE);
+        step2Text.DOText("You will be thrown\nin the direction that\nyou dashed", TIMER_TO_FORM_SETENCE);
+ 
+
 
     }
     void ActivateStepThree()
