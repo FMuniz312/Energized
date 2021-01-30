@@ -66,7 +66,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 805
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -370,6 +370,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2609fcd3e6577044f89a44d5706c86ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minDistanceToFindTarget: 20
+  lifeLostPerSecond: 7
   enemyProjectileLayerMask:
     serializedVersion: 2
     m_Bits: 512
@@ -378,7 +380,6 @@ MonoBehaviour:
     m_Bits: 256
   jumpWarningParticlePrefab: {fileID: 2237315391752371742, guid: a08f3b5c00509ed46a6b58efa3cd8dae, type: 3}
   enemyWarningParticlePrefab: {fileID: 2237315391752371742, guid: 9fa82b42e6794a840ba5f664695dd5fe, type: 3}
-  MinDistance: 20
 --- !u!114 &5385724874968506390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4308,7 +4309,7 @@ ParticleSystem:
     subEmitters:
     - serializedVersion: 3
       emitter: {fileID: 0}
-      type: 0
+      type: 1
       properties: 0
       emitProbability: 1
   LightsModule:

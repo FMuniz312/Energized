@@ -24,13 +24,13 @@ public class AttackButtonBehaviour : MonoBehaviour
     private void ResetAttackButton(object sender, System.EventArgs e)
     {
         canAttack = false;
-        AnimationActiveState(false);
+        AnimationActiveState(canAttack);
     }
 
     private void OnEnergyCharged(object sender, PointsSystem.OnPointsDataEventArgs e)
     {
         canAttack = true;
-        AnimationActiveState(true);
+        AnimationActiveState(canAttack);
         if (!idTweener.IsActive() || idTweener == null) attackButton.transform.DOShakePosition(.3f);
     }
     void AnimationActiveState(bool canattack)
@@ -53,7 +53,7 @@ public class AttackButtonBehaviour : MonoBehaviour
     {
         if (canAttack)
         {
-            if (playerManager.GetEnemyTarget() != null)
+            if (playerManager.IsThereEnemyClose())
             {
                 Vector3 enemyTargetPos = playerManager.GetEnemyTarget().transform.position;
                 Vector3 direction = -playerManager.GetDirectionToPlayer(enemyTargetPos);

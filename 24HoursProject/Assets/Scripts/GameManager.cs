@@ -5,13 +5,15 @@ using System.Linq;
 using System;
 
 public class GameManager : MonoBehaviour
-{
+{[Header("Mechanics Balance")]
     [SerializeField] float timerMaxToEnemySpawn;
     [SerializeField] float timerMaxToBlackHoleSpawn;
     [SerializeField] float warningTime;
     [SerializeField] int maxAmountOfTargetPointsAlive;
     int amountOfTargetPointsAlive;
+    [Header("Resource Income")]
     [SerializeField] GameMenuHandler GameMenuHandler;
+
     public static event EventHandler OnGamePauseStatusChange;
     public static event  EventHandler onGameReset;
 

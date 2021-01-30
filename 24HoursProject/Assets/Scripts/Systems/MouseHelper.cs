@@ -24,14 +24,17 @@ public static class MouseHelper
         m_LastFrame = -1;
     }
 
-    static void Update()
+    static public void Update()
     {
-        if (m_LastFrame >= Time.frameCount)return;
-        if (m_LastFrame < Time.frameCount - 1) m_CurrentMousePos = Input.mousePosition;
+        if (m_LastFrame >= Time.frameCount) return;
+        if (m_LastFrame < Time.frameCount - 1)
+        {
+            m_CurrentMousePos = Input.mousePosition;
+        }
         m_LastFrame = Time.frameCount;
-        m_LastMousePos = m_CurrentMousePos;
         m_CurrentMousePos = Input.mousePosition;
         m_CurrentDelta = m_CurrentMousePos - m_LastMousePos;
+        m_LastMousePos = m_CurrentMousePos;
         for (int i = 0; i < m_DragStartVector.Length; i++)
         {
             if (Input.GetMouseButtonDown(i))
@@ -41,7 +44,7 @@ public static class MouseHelper
         }
     }
 
-   public static Vector2 MouseWorldPos()
+    public static Vector2 MouseWorldPos()
     {
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         worldPos.z = 0;

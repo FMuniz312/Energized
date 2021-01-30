@@ -9,7 +9,7 @@ public class ProjectileBehaviour : MonoBehaviour
 {
     [SerializeField] Color enemyProjectileColor;
     [SerializeField] Color playerProjectileColor;
-     static List<GameObject> projectileAliveList;
+    static List<GameObject> projectileAliveList;
 
     public event EventHandler OnProjectileDestroyed;
 
@@ -49,17 +49,20 @@ public class ProjectileBehaviour : MonoBehaviour
 
     }
     void Start()
-    {   if (projectileAliveList == null) projectileAliveList = new List<GameObject>();
+    {
+        if (projectileAliveList == null) projectileAliveList = new List<GameObject>();
         projectileAliveList.Add(gameObject);
-        TweenCallback tweenCallback = ()=> transform.DOShakeScale(.3f);
-        Vector3 defaultScale = transform.localScale;
-        transform.localScale = Vector3.zero;
-        transform.DOScale(defaultScale, .4f).OnComplete(tweenCallback);
+       
+       //     Vector3 defaultScale = transform.localScale;
+        //    transform.localScale = Vector3.zero;
+        //    transform.DOScale(defaultScale, 5);
+      
+        
     }
     public void SetAutoDestroyByDistance(float maxdistance)
     {
         destroyByDistanceToPlayer = true;
-        
+
         maxDistance = maxdistance;
     }
     // Update is called once per frame
@@ -71,7 +74,7 @@ public class ProjectileBehaviour : MonoBehaviour
         }
         if (destroyByDistanceToPlayer)
         {
-            if(Vector2.Distance(transform.position,PlayerManager.instance.transform.position) > maxDistance)
+            if (Vector2.Distance(transform.position, PlayerManager.instance.transform.position) > maxDistance)
             {
                 Destroy(gameObject);
             }
@@ -85,15 +88,15 @@ public class ProjectileBehaviour : MonoBehaviour
             if (collisionGO.CompareTag("Player") && isItEnemyProjectile)
             {
                 PlayerManager playerManager = collisionGO.GetComponent<PlayerManager>();
-                
-                    //Hit player and show visual effect
-                    Destroy(gameObject);
-                    
-                    SoundSystem.instance.PlaySound(SoundSystem.Sound.PlayerHurt);
-                    int scoreDamage = 20;
-                    MunizUtilities.TextPopUp.CreateTextPopUp("-" + scoreDamage + " points!", playerManager.transform.position,2,Color.red);
-                    playerManager.powerChargeSystem.RemovePoints(scoreDamage);
-                
+
+                //Hit player and show visual effect
+                Destroy(gameObject);
+
+                SoundSystem.instance.PlaySound(SoundSystem.Sound.PlayerHurt);
+                int scoreDamage = 20;
+                MunizUtilities.TextPopUp.CreateTextPopUp("-" + scoreDamage + " points!", playerManager.transform.position, 2, Color.red);
+                playerManager.powerChargeSystem.RemovePoints(scoreDamage);
+
                 SoundSystem.instance.PlaySound(SoundSystem.Sound.ProjectileExplode);
                 ParticleEffectFactory.instance.CreateParticleEffect(ParticleEffectFactory.Particle.RedBallsExplosion, transform.position);
 
@@ -102,7 +105,7 @@ public class ProjectileBehaviour : MonoBehaviour
             {
                 //Destroy enemy and show effects
                 Destroy(gameObject);
- 
+
                 Destroy(collisionGO);
                 SoundSystem.instance.PlaySound(SoundSystem.Sound.ProjectileExplode);
                 ParticleEffectFactory.instance.CreateParticleEffect(ParticleEffectFactory.Particle.EnemyDeath, collisionGO.transform.position);
@@ -113,15 +116,15 @@ public class ProjectileBehaviour : MonoBehaviour
     }
     public static void ClearAllProjectilesAlive()
     {
-        if(projectileAliveList != null )
+        if (projectileAliveList != null)
         {
 
             projectileAliveList.ForEach((projectile) => Destroy(projectile));
-            
+
             projectileAliveList.Clear();
         }
     }
-    
+
     void OnDestroy()
     {
         OnProjectileDestroyed?.Invoke(this, EventArgs.Empty);

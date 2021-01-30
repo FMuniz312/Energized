@@ -6,6 +6,11 @@ public class MovementHandler : MonoBehaviour
 {
     [SerializeField] GameObject fingerRep;
  
+    void Update()
+    {
+        VisualTouchManager();
+        MouseHelper.Update();
+    }
     public void VisualTouchManager()
     {
 #if UNITY_ANDROID || UNITY_IOS

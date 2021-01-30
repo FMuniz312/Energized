@@ -5,9 +5,16 @@ using UnityEngine;
 using DG.Tweening;
 
 public class ScoreUIBehaviour : MonoBehaviour
-{
+{   [Header("Resource Income")]
     [SerializeField] Text scoreText;
     [SerializeField] PlayerManager playerManager;
+
+    [Header("Tweening")]
+    [SerializeField] float scoreTextShakeDuration;
+    [SerializeField] float scoreTextShakeForce;
+    
+    
+    
     PointsSystem playerScoreSystem;
     const string PREP_TEXT = "Points: ";
 
@@ -25,7 +32,7 @@ public class ScoreUIBehaviour : MonoBehaviour
         scoreText.text = PREP_TEXT + e.CurrentPointsEventArgs.ToString();
  
          scoreText.rectTransform.anchoredPosition = scoreTextDefaultPos;
-         scoreText.rectTransform.DOShakePosition(.4f);
+         scoreText.rectTransform.DOShakePosition(scoreTextShakeDuration, scoreTextShakeForce);
 
     }
 
