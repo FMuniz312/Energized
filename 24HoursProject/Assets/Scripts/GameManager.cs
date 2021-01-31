@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Resource Income")]
     [SerializeField] GameMenuHandler GameMenuHandler;
+    [SerializeField] EnemyScriptableObjectDefinition scriptableObject;
+
 
     public static event EventHandler OnGamePauseStatusChange;
     public static event  EventHandler onGameReset;
@@ -42,6 +44,7 @@ public class GameManager : MonoBehaviour
     private void MapLevelSystem_OnPointsIncreased(object sender, PointsSystem.OnPointsDataEventArgs e)
     {
        if(maxAmountOfTargetPointsAlive > 3) maxAmountOfTargetPointsAlive -= lessTargetAmountPerLevel;
+        EnemyBehaviour.UpdateEnemy(e.CurrentPointsEventArgs, scriptableObject.SecondPhase, scriptableObject.thirdPhase);
     }
 
     private void GameManager_OnGamePauseStatusChange(object sender, EventArgs e)

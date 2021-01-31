@@ -695,6 +695,7 @@ MonoBehaviour:
   maxAmountOfTargetPointsAlive: 13
   lessTargetAmountPerLevel: 2
   GameMenuHandler: {fileID: 834339728}
+  scriptableObject: {fileID: 11400000, guid: b1143cc62c7d5c04cbf5bd0f32503bbc, type: 2}
 --- !u!1 &448792967
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,13 +5,7 @@ using DG.Tweening;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    [Header("Game Balance")]
-    [SerializeField] float timerBtwAttacks;
-
-    [Header("Tweening")]
-    [SerializeField] Color firstPhase;
-    [SerializeField] Color SecondPhase;
-    [SerializeField] Color thirdPhase;
+   [SerializeField] EnemyScriptableObjectDefinition scriptableObject;
     static Color currentColor;
 
     static float timerMax;
@@ -23,14 +17,16 @@ public class EnemyBehaviour : MonoBehaviour
     public static List<GameObject> enemiesAliveList;
     public bool idleEnemy { get; set; }
 
+    
+
     const float PLAYER_MIN_DISTANCE = 10f;
     private void Start()
     {
         if (enemiesAliveList == null)
         {
             enemiesAliveList = new List<GameObject>();
-            currentColor = firstPhase;
-            timerMax = timerBtwAttacks;
+            currentColor = scriptableObject.firstPhase;
+            timerMax = scriptableObject.timerBtwAttacks;
         }
         enemiesAliveList.Add(this.gameObject);
         timer = timerMax;
@@ -40,8 +36,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         OnEnemySpawnChange?.Invoke(this, System.EventArgs.Empty);
         GameManager.onGameReset += GameManager_onGameReset;
-        PlayerManager.instance.mapLevelSystem.OnPointsIncreased += MapLevelSystem_OnPointsIncreased;
-        try
+         try
         {
             float defaultScaleX = transform.localScale.x;
             transform.localScale = Vector3.zero;
@@ -55,21 +50,22 @@ public class EnemyBehaviour : MonoBehaviour
 
     }
 
-    private void MapLevelSystem_OnPointsIncreased(object sender, PointsSystem.OnPointsDataEventArgs e)
+      public static void UpdateEnemy(float currentLevel, Color secondphase, Color thirdphase)
     {
-        if (e.CurrentPointsEventArgs == 2)
+        if (currentLevel == 2)
         {
             timerMax *= .7f;
-            currentColor = SecondPhase;
+            currentColor = secondphase;
         }
-        else if(e.CurrentPointsEventArgs == 3) currentColor = thirdPhase;
+        else if(currentLevel == 3) currentColor = thirdphase;
 
     }
 
+
     private void GameManager_onGameReset(object sender, System.EventArgs e)
     {
-        timerMax = timerBtwAttacks;
-        currentColor = firstPhase;
+        timerMax = scriptableObject.timerBtwAttacks;
+        currentColor = scriptableObject.firstPhase;
     }
 
     void Update()
