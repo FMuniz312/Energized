@@ -93,9 +93,11 @@ public class ProjectileBehaviour : MonoBehaviour
                 Destroy(gameObject);
 
                 SoundSystem.instance.PlaySound(SoundSystem.Sound.PlayerHurt);
-                int scoreDamage = 20;
+                int powerDamage = 20;
+                int scoreDamage = 8;
                 MunizUtilities.TextPopUp.CreateTextPopUp("-" + scoreDamage + " points!", playerManager.transform.position, 2, Color.red);
-                playerManager.powerChargeSystem.RemovePoints(scoreDamage);
+                playerManager.powerChargeSystem.RemovePoints(powerDamage);
+                playerManager.GetScoreSystem().RemovePoints(scoreDamage);
 
                 SoundSystem.instance.PlaySound(SoundSystem.Sound.ProjectileExplode);
                 ParticleEffectFactory.instance.CreateParticleEffect(ParticleEffectFactory.Particle.RedBallsExplosion, transform.position);

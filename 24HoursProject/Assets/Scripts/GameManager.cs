@@ -136,14 +136,16 @@ public class GameManager : MonoBehaviour
     {
         Vector3 spawnPos = GetValidPositionCloseToPlayer();
         GameObject enemyGO = EnemyFactory.instance.SpawnEnemy(EnemyFactory.EnemyType.Normal, spawnPos);
-
-        enemyGO.GetComponent<SpriteRenderer>().enabled = false;
+        Color colorModified = enemyGO.GetComponent<SpriteRenderer>().color;
+        colorModified.a = 0;
+        enemyGO.GetComponent<SpriteRenderer>().color = colorModified;
         enemyGO.GetComponent<EnemyBehaviour>().enabled = false;
         //instantiate  spawn-warning sign
         ParticleEffectFactory.instance.CreateParticleEffect(ParticleEffectFactory.Particle.SpawnWarning, spawnPos);
         yield return new WaitForSeconds(warningTime);
         //spawn enemy
-        enemyGO.GetComponent<SpriteRenderer>().enabled = true;
+        colorModified.a = 1;
+        enemyGO.GetComponent<SpriteRenderer>().color = colorModified;
         enemyGO.GetComponent<EnemyBehaviour>().enabled = true;
     }
     IEnumerator SpawningBlackHoleLogic()

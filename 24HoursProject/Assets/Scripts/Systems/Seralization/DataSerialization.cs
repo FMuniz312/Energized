@@ -69,8 +69,9 @@ public class DataSerialization : MonoBehaviour
 
         catch
         {
+#if UNITY_EDITOR
             Debug.Log("Não existe uma save ainda");
-
+#endif
             Save();
         }
 

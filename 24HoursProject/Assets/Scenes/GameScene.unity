@@ -2506,12 +2506,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a6f0cf7f417b244d8b907d6f49b05a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mileStone: 100
+  mileStone: 150
   mileStoneMultiplier: 2
   gradient:
     serializedVersion: 2
-    key0: {r: 0.80392164, g: 0.80392164, b: 0.80392164, a: 1}
-    key1: {r: 0.06666667, g: 0.06666667, b: 0.06666667, a: 1}
+    key0: {r: 0.79215693, g: 0.79215693, b: 0.79215693, a: 1}
+    key1: {r: 0, g: 0, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}

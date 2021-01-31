@@ -5,7 +5,15 @@ using DG.Tweening;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    [Header("Game Balance")]
     [SerializeField] float timerBtwAttacks;
+
+    [Header("Tweening")]
+    [SerializeField] Color firstPhase;
+    [SerializeField] Color SecondPhase;
+    [SerializeField] Color thirdPhase;
+    static Color currentColor;
+
     static float timerMax;
     float timer;
     public static int amountOfEnemiesAlive;
@@ -21,13 +29,14 @@ public class EnemyBehaviour : MonoBehaviour
         if (enemiesAliveList == null)
         {
             enemiesAliveList = new List<GameObject>();
-
+            currentColor = firstPhase;
             timerMax = timerBtwAttacks;
         }
         enemiesAliveList.Add(this.gameObject);
         timer = timerMax;
         amountOfEnemiesAlive += 1;
-
+         
+        GetComponent<SpriteRenderer>().color = currentColor;
 
         OnEnemySpawnChange?.Invoke(this, System.EventArgs.Empty);
         GameManager.onGameReset += GameManager_onGameReset;
@@ -48,7 +57,13 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void MapLevelSystem_OnPointsIncreased(object sender, PointsSystem.OnPointsDataEventArgs e)
     {
-        if(e.CurrentPointsEventArgs == 1) timerMax *= .7f; 
+        if (e.CurrentPointsEventArgs == 2)
+        {
+            timerMax *= .7f;
+            currentColor = SecondPhase;
+        }
+        else if(e.CurrentPointsEventArgs == 3) currentColor = thirdPhase;
+
     }
 
     private void GameManager_onGameReset(object sender, System.EventArgs e)
@@ -88,7 +103,7 @@ public class EnemyBehaviour : MonoBehaviour
                     ProjectileFactory.instance.CreateProjectile(spawnPos, PlayerManager.instance.GetDirectionToPlayer(spawnPos));
                     ProjectileFactory.instance.CreateProjectile(spawnPos, PlayerManager.instance.GetDirectionToPlayer(spawnPos));
                 }; break;
-            default: ProjectileFactory.instance.CreateProjectile(spawnPos, PlayerManager.instance.GetDirectionToPlayer(spawnPos));break;
+            default: ProjectileFactory.instance.CreateProjectile(spawnPos, PlayerManager.instance.GetDirectionToPlayer(spawnPos)); break;
         }
     }
 

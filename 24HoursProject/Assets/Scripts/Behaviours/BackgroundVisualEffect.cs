@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using DG.Tweening;
 
 public class BackgroundVisualEffect : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class BackgroundVisualEffect : MonoBehaviour
     private void BackgroundVisualEffect_OnPointsChanged(object sender, PointsSystem.OnPointsDataEventArgs e)
     {if(PlayerManager.instance.GetScoreSystem().currentPoints >= pointsToChange)PlayerManager.instance.mapLevelSystem.AddValue(1);
         if (backGroundIndex >= backGrounds.Length - 1) return;
+       Color fixAlpha = gradient.Evaluate(((float)e.CurrentPointsEventArgs / pointsToChange));
         float darkness = ((float)e.CurrentPointsEventArgs / pointsToChange);
         spriteRenderer.color = gradient.Evaluate(darkness);
         if (darkness >= 1)
@@ -48,8 +50,9 @@ public class BackgroundVisualEffect : MonoBehaviour
             backGroundIndex++;
            
             spriteRenderer.sprite = backGrounds[backGroundIndex];
-            spriteRenderer.color = gradient.Evaluate(((float)e.CurrentPointsEventArgs / pointsToChange));
-        }
+            spriteRenderer.color = fixAlpha;
+            spriteRenderer.DOColor(gradient.Evaluate(((float)e.CurrentPointsEventArgs / pointsToChange)),.5f);
+         }
     }
 
 

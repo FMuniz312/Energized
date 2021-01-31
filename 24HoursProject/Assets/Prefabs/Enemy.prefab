@@ -113,3 +113,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerBtwAttacks: 5
+  firstPhase: {r: 0.8196079, g: 0.5647059, b: 0.058823533, a: 1}
+  SecondPhase: {r: 0.81960785, g: 0.3655402, b: 0.05882351, a: 1}
+  thirdPhase: {r: 0.81960785, g: 0.23765835, b: 0.05882351, a: 1}
