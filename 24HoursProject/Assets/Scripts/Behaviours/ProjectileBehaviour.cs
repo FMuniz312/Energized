@@ -109,7 +109,8 @@ public class ProjectileBehaviour : MonoBehaviour
                 Destroy(collisionGO);
                 SoundSystem.instance.PlaySound(SoundSystem.Sound.ProjectileExplode);
                 ParticleEffectFactory.instance.CreateParticleEffect(ParticleEffectFactory.Particle.EnemyDeath, collisionGO.transform.position);
-
+                PlayerManager.instance.PlayerScoreAddPoints(15);
+                PlayerManager.instance.lifeEnergySystem.AddValue(9999999);
             }
 
         }

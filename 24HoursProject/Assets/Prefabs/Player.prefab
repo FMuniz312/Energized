@@ -380,6 +380,8 @@ MonoBehaviour:
     m_Bits: 256
   jumpWarningParticlePrefab: {fileID: 2237315391752371742, guid: a08f3b5c00509ed46a6b58efa3cd8dae, type: 3}
   enemyWarningParticlePrefab: {fileID: 2237315391752371742, guid: 9fa82b42e6794a840ba5f664695dd5fe, type: 3}
+  mapLevelSystem:
+    currentPoints: 0
 --- !u!114 &5385724874968506390
 MonoBehaviour:
   m_ObjectHideFlags: 0

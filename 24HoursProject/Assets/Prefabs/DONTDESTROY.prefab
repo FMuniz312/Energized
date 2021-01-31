@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: -6691133157546168340}
   - component: {fileID: 6470205978966820346}
   - component: {fileID: 2082517396}
-  - component: {fileID: 3878055869251405048}
   - component: {fileID: 4053270911113383152}
   m_Layer: 0
   m_Name: DONTDESTROY
@@ -180,18 +179,6 @@ MonoBehaviour:
       PassedThroughTutorial: 0
       musicVolume: 1
       sfxVolume: 1
---- !u!114 &3878055869251405048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7998755519988491760}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64e9a58125fdbcc49bd9d01702e9fba4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4053270911113383152
 MonoBehaviour:
   m_ObjectHideFlags: 0

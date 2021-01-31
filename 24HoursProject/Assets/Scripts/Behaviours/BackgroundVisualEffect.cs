@@ -6,8 +6,8 @@ using UnityEngine;
 public class BackgroundVisualEffect : MonoBehaviour
 {
     [Header("Tweening")]
-    [SerializeField] float mileStone;
-    [SerializeField] float mileStoneMultiplier;
+    [SerializeField] int mileStone;
+    [SerializeField] int mileStoneMultiplier;
 
 
     [Header("Resource Income")]
@@ -16,39 +16,43 @@ public class BackgroundVisualEffect : MonoBehaviour
     SpriteRenderer spriteRenderer;
     int backGroundIndex;
 
-    const int FIRST_MILESTONE = 100;
+
     int pointsToChange;
-     private void Awake()
+    private void Awake()
     {
-        pointsToChange = FIRST_MILESTONE;
+        pointsToChange = mileStone;
         spriteRenderer = GetComponent<SpriteRenderer>();
         PlayerManager.instance.GetScoreSystem().OnPointsChanged += BackgroundVisualEffect_OnPointsChanged;
         GameManager.onGameReset += GameManager_onGameReset;
+
+        
     }
 
     private void GameManager_onGameReset(object sender, System.EventArgs e)
     {
         backGroundIndex = 0;
         spriteRenderer.sprite = backGrounds[backGroundIndex];
-        pointsToChange = FIRST_MILESTONE;
+        pointsToChange = mileStone;
 
     }
 
     private void BackgroundVisualEffect_OnPointsChanged(object sender, PointsSystem.OnPointsDataEventArgs e)
-    {
-        if(backGroundIndex >= backGrounds.Length - 1) return;
+    {if(PlayerManager.instance.GetScoreSystem().currentPoints >= pointsToChange)PlayerManager.instance.mapLevelSystem.AddValue(1);
+        if (backGroundIndex >= backGrounds.Length - 1) return;
         float darkness = ((float)e.CurrentPointsEventArgs / pointsToChange);
         spriteRenderer.color = gradient.Evaluate(darkness);
-        if(darkness == 1   )
+        if (darkness >= 1)
         {
             //change background and light it up
-            pointsToChange *= 2;
+            pointsToChange *= mileStoneMultiplier;
             backGroundIndex++;
+           
             spriteRenderer.sprite = backGrounds[backGroundIndex];
+            spriteRenderer.color = gradient.Evaluate(((float)e.CurrentPointsEventArgs / pointsToChange));
         }
     }
 
-    
 
-   
+
+
 }

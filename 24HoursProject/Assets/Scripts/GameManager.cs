@@ -10,7 +10,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] float timerMaxToBlackHoleSpawn;
     [SerializeField] float warningTime;
     [SerializeField] int maxAmountOfTargetPointsAlive;
+    [SerializeField] int lessTargetAmountPerLevel;
     int amountOfTargetPointsAlive;
+
     [Header("Resource Income")]
     [SerializeField] GameMenuHandler GameMenuHandler;
 
@@ -34,6 +36,12 @@ public class GameManager : MonoBehaviour
         GamePaused = true;
         StartCoroutine(LogicBeforeGameStart());
         OnGamePauseStatusChange += GameManager_OnGamePauseStatusChange;
+        PlayerManager.instance.mapLevelSystem.OnPointsIncreased += MapLevelSystem_OnPointsIncreased;
+    }
+
+    private void MapLevelSystem_OnPointsIncreased(object sender, PointsSystem.OnPointsDataEventArgs e)
+    {
+       if(maxAmountOfTargetPointsAlive > 3) maxAmountOfTargetPointsAlive -= lessTargetAmountPerLevel;
     }
 
     private void GameManager_OnGamePauseStatusChange(object sender, EventArgs e)

@@ -656,7 +656,6 @@ GameObject:
   m_Component:
   - component: {fileID: 326260473}
   - component: {fileID: 326260474}
-  - component: {fileID: 326260475}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -693,20 +692,9 @@ MonoBehaviour:
   timerMaxToEnemySpawn: 5
   timerMaxToBlackHoleSpawn: 6
   warningTime: 1.5
-  maxAmountOfTargetPointsAlive: 7
+  maxAmountOfTargetPointsAlive: 13
+  lessTargetAmountPerLevel: 2
   GameMenuHandler: {fileID: 834339728}
---- !u!114 &326260475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 326260469}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64e9a58125fdbcc49bd9d01702e9fba4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &448792967
 GameObject:
   m_ObjectHideFlags: 0
@@ -1287,7 +1275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.9245283, g: 0.8599942, b: 0.17880027, a: 0.7882353}
+  m_Color: {r: 0.8962264, g: 0.6930322, b: 0.004227493, a: 0.7882353}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1544,8 +1532,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1053451387}
   playerManager: {fileID: 1142128577}
-  scoreTextShakeDuration: 0.15
-  scoreTextShakeForce: 20
+  scoreTextShakeDuration: 0.2
+  scoreTextShakeForce: 30
 --- !u!1 &833448401
 GameObject:
   m_ObjectHideFlags: 0
@@ -2518,8 +2506,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a6f0cf7f417b244d8b907d6f49b05a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mileStone: 0
-  mileStoneMultiplier: 0
+  mileStone: 100
+  mileStoneMultiplier: 2
   gradient:
     serializedVersion: 2
     key0: {r: 0.80392164, g: 0.80392164, b: 0.80392164, a: 1}
@@ -2549,7 +2537,10 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  backGrounds: []
+  backGrounds:
+  - {fileID: 21300000, guid: 3f5d01dd052e5dd46a17e7489f1f333a, type: 3}
+  - {fileID: 21300000, guid: 3a29e09b78356804e92a02e71cbb3369, type: 3}
+  - {fileID: 21300000, guid: c803522a2c1cb2b49bd116a46182d090, type: 3}
 --- !u!68 &1429502245
 EdgeCollider2D:
   m_ObjectHideFlags: 0

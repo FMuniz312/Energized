@@ -26,6 +26,7 @@ public class PlayerManager : MonoBehaviour
     public PointsSystem powerChargeSystem { get; private set; }
     public PointsSystem lifeEnergySystem { get; private set; }
     PointsSystem scoreSystem;
+   public PointsSystem mapLevelSystem;
     int highScore;
 
 
@@ -46,6 +47,7 @@ public class PlayerManager : MonoBehaviour
         defaultSize = transform.localScale;
         powerChargeSystem = new PointsSystem(100);
         lifeEnergySystem = new PointsSystem(60, 60);
+        mapLevelSystem = new PointsSystem(3, 1);
         scoreSystem = new PointsSystem();
         highScore = DataSerialization.Instance.SaveDataContainer.PlayerSaveData.highScoreValue;
         powerChargeSystem.OnPointsMax += Energized;
@@ -65,11 +67,12 @@ public class PlayerManager : MonoBehaviour
     {
 
          ParticleWarning(enemyTargetTransform, copyEnemyWarningParticle);
-        ParticleWarning(jumpTargetTransform, copyJumpWarningParticle);
 
         if (!GameManager.GamePaused)
         {
             ChoosingJumpTarget();
+            ParticleWarning(jumpTargetTransform, copyJumpWarningParticle);
+
             if (isCharged)
             {
                 ChoosingEnemy();

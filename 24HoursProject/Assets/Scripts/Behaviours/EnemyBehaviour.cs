@@ -6,25 +6,32 @@ using DG.Tweening;
 public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField] float timerBtwAttacks;
+    static float timerMax;
     float timer;
     public static int amountOfEnemiesAlive;
     public const int MAX_ENEMIES_ALIVE = 10;
     public static event System.EventHandler OnEnemySpawnChange;
-    public  event System.EventHandler OnEnemySpawnDestroyed;
+    public event System.EventHandler OnEnemySpawnDestroyed;
     public static List<GameObject> enemiesAliveList;
     public bool idleEnemy { get; set; }
 
     const float PLAYER_MIN_DISTANCE = 10f;
     private void Start()
     {
-        if (enemiesAliveList == null) enemiesAliveList = new List<GameObject>();
+        if (enemiesAliveList == null)
+        {
+            enemiesAliveList = new List<GameObject>();
+
+            timerMax = timerBtwAttacks;
+        }
         enemiesAliveList.Add(this.gameObject);
-        timer = timerBtwAttacks;
+        timer = timerMax;
         amountOfEnemiesAlive += 1;
 
 
         OnEnemySpawnChange?.Invoke(this, System.EventArgs.Empty);
-
+        GameManager.onGameReset += GameManager_onGameReset;
+        PlayerManager.instance.mapLevelSystem.OnPointsIncreased += MapLevelSystem_OnPointsIncreased;
         try
         {
             float defaultScaleX = transform.localScale.x;
@@ -38,6 +45,17 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
     }
+
+    private void MapLevelSystem_OnPointsIncreased(object sender, PointsSystem.OnPointsDataEventArgs e)
+    {
+        if(e.CurrentPointsEventArgs == 1) timerMax *= .7f; 
+    }
+
+    private void GameManager_onGameReset(object sender, System.EventArgs e)
+    {
+        timerMax = timerBtwAttacks;
+    }
+
     void Update()
     {
         if (!GameManager.GamePaused && !idleEnemy)
@@ -45,17 +63,32 @@ public class EnemyBehaviour : MonoBehaviour
             timer -= Time.deltaTime;
             if (timer < 0)
             {
-                timer += timerBtwAttacks;
+                timer += timerMax;
                 //Instantiate attack
-                float randomX = Random.Range(-3f, 3f);
-                float randomY = Random.Range(-3f, 3f);
-                Vector3 spawnPos = transform.position + new Vector3(randomX, randomY, 0);
 
-                ProjectileFactory.instance.CreateProjectile(spawnPos, PlayerManager.instance.GetDirectionToPlayer(spawnPos), 3);
+                ActivateProjectileLogic();
+
             }
 
-
             CheckPlayerNear();
+        }
+    }
+
+    void ActivateProjectileLogic()
+    {
+        float randomX = Random.Range(-3f, 3f);
+        float randomY = Random.Range(-3f, 3f);
+        Vector3 spawnPos = transform.position + new Vector3(randomX, randomY, 0);
+        int level = PlayerManager.instance.mapLevelSystem.currentPoints;
+        switch (level)
+        {
+
+            case 3:
+                {
+                    ProjectileFactory.instance.CreateProjectile(spawnPos, PlayerManager.instance.GetDirectionToPlayer(spawnPos));
+                    ProjectileFactory.instance.CreateProjectile(spawnPos, PlayerManager.instance.GetDirectionToPlayer(spawnPos));
+                }; break;
+            default: ProjectileFactory.instance.CreateProjectile(spawnPos, PlayerManager.instance.GetDirectionToPlayer(spawnPos));break;
         }
     }
 
@@ -67,7 +100,6 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
     }
-
     public static void ClearAllEnemiesAlive()
     {
         if (enemiesAliveList != null)
@@ -86,7 +118,6 @@ public class EnemyBehaviour : MonoBehaviour
             PlayerManager.instance.DashMovement(PlayerManager.instance.GetDirectionToPlayer(transform.position), 5f);
         }
     }
-
     private void OnDestroy()
     {
         enemiesAliveList.Remove(this.gameObject);
