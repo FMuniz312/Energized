@@ -69,6 +69,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void GameManager_onGameReset(object sender, System.EventArgs e)
     {
         timerMax = timerBtwAttacks;
+        currentColor = firstPhase;
     }
 
     void Update()

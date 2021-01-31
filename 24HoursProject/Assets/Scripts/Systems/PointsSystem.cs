@@ -24,6 +24,7 @@ public class PointsSystem
    
     public int maxPoints { get; private set; }
     public int currentPoints;
+    int startingPoints;
     public event EventHandler<OnPointsDataEventArgs> OnPointsDecreased;
     public event EventHandler<OnPointsDataEventArgs> OnPointsIncreased;
     public event EventHandler<OnPointsDataEventArgs> OnPointsChanged;
@@ -49,6 +50,7 @@ public class PointsSystem
     {
         maxPoints = maxpoints;
         currentPoints = startingpoints;
+        startingPoints = startingpoints;
     }
 
 
@@ -119,7 +121,8 @@ public class PointsSystem
     /// <remarks>Triggers the OnPointsChanged and OnPointsZero events</remarks>
     public void ResetPoints()
     {
-        currentPoints = 0;
+        currentPoints = startingPoints;
+
 
         OnPointsDataEventArgs EventArgsData = new OnPointsDataEventArgs { CurrentPointsEventArgs = currentPoints };
         OnPointsChanged?.Invoke(this, EventArgsData);

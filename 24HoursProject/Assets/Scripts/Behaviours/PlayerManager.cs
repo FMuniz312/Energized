@@ -203,6 +203,7 @@ public class PlayerManager : MonoBehaviour
     {
         scoreSystem.ResetPoints();
         powerChargeSystem.ResetPoints();
+        mapLevelSystem.ResetPoints();
         lifeEnergySystem.AddValue(lifeEnergySystem.maxPoints);
         enemyWarningParticlePrefab.SetActive(false);
         jumpWarningParticlePrefab.SetActive(false);
